@@ -1,0 +1,11 @@
+name: Test Release
+runs:
+  using: composite
+  steps:
+    - name: Setup MongoDB Server
+      uses: spring-projects/spring-data-build/actions/setup-mongodb@3.5.x
+      with:
+        replica-set: 'rs0'
+    - name: Test Release
+      shell: bash
+      run:  ./mvnw --batch-mode --settings release-train-settings.xml clean verify --activate-profiles releaseTrain,it
